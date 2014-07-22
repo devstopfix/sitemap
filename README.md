@@ -13,7 +13,7 @@ Optionally sitemap XML can be saved to file using provided path.
 
 Input data structure should be in the following format:
 
-```
+```clojure
 [
   {:loc "http://hashobject.com/about"
    :lastmod "2013-05-31"
@@ -57,8 +57,13 @@ user=> (generate-sitemap [{:loc "http://hashobject.com/about"
                          :lastmod "2013-06-01"
                          :changefreq "monthly"
                          :priority "0.9"}])
-<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">
+```
+
+generates the following XML:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://hashobject.com/about</loc>
     <lastmod>2013-05-31</lastmod>
@@ -81,7 +86,7 @@ You can use this library and there are also plenty of online validators.
 
 ## Validation
 
-This library can validate the generated XML against [version 0.9][http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd] of the schema.
+This library can validate the generated XML against [version 0.9](http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd) of the schema.
 
 ```clojure
 (use 'sitemap.core)
@@ -100,7 +105,7 @@ This library can validate the generated XML against [version 0.9][http://www.sit
 ; "You have 0 errors"
 ```
 
-Validation errors are reported as a list of Exceptions:
+Validation errors are reported as a list of [SAXParseException](http://docs.oracle.com/javase/7/docs/api/org/xml/sax/SAXParseException.html):
 
 ```clojure
 (->> 
@@ -114,7 +119,8 @@ Validation errors are reported as a list of Exceptions:
   (first)
   (format "Your first error is %s"))
 
-; "Your first error is cvc-datatype-valid.1.2.3: '2000-00-00' is not a valid value of union type 'tLastmod'."
+; "Your first error is cvc-datatype-valid.1.2.3: 
+;   '2000-00-00' is not a valid value of union type 'tLastmod'."
 ```
 
 ## Contributions
